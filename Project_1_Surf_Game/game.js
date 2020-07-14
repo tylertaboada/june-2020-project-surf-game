@@ -5,6 +5,11 @@ class Game {
     this.player = new Surfer(this);
     this.kook = new Kook(this);
     this.setKeyBindings();
+    this.running = true;
+    this.kooks = [];
+    this.obstacleDelta = 1500;
+    this.timer = 0;
+    this.scoreboard = new Scoreboard(this);
   }
 
   setKeyBindings() {
@@ -17,23 +22,36 @@ class Game {
         case 'ArrowDown':
           this.player.surfY += 15;
           break;
+        case 27:
+          game.togglePause();
+          break;
       }
     });
   }
 
+  addMoreKooks(timestamp) {
+    if (this.timer < timestamp - this.obstacleDelta) {
+      this.timer = timestamp;
+      this.kooks.push(new Kook(this));
+    }
+  }
+
   lose() {
+    this.running = false;
     clearInterval();
     window.location.reload();
   }
 
   checkCollission() {
-    if (
-      this.player.surfX < this.kook.kookX + this.kook.kookWidth &&
-      this.player.surfX + this.player.playerWidth > this.kook.kookX &&
-      this.player.surfY < this.kook.kookY + this.kook.kookHeight &&
-      this.player.surfY + this.player.playerHeight > this.kook.kookY
-    ) {
-      this.lose();
+    for (let kook of this.kooks) {
+      if (
+        this.player.surfX < kook.kookX + kook.kookWidth &&
+        this.player.surfX + this.player.playerWidth > kook.kookX &&
+        this.player.surfY < kook.kookY + kook.kookHeight &&
+        this.player.surfY + this.player.playerHeight > kook.kookY
+      ) {
+        this.lose();
+      }
     }
   }
 
@@ -43,27 +61,34 @@ class Game {
     }
   }
 
-  runLogic() {
+  runLogic(timestamp) {
     this.player.runLogic();
-    this.kook.runLogic();
+    for (let kook of this.kooks) {
+      kook.runLogic();
+    }
     this.checkCollission();
     this.checkSurfBail();
+    this.addMoreKooks(timestamp);
   }
 
   clean() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  paint() {
+  paint(timestamp) {
     this.player.paint();
-    this.kook.paint();
+    for (let kook of this.kooks) {
+      kook.paint();
+    }
+    this.scoreboard.paint(timestamp);
   }
 
-  loop() {
-    this.runLogic();
+  loop(timestamp) {
+    this.runLogic(timestamp);
     this.clean();
-    this.paint();
-
-    window.requestAnimationFrame(() => this.loop());
+    this.paint(timestamp);
+    if (this.running === true) {
+      window.requestAnimationFrame(timestamp => this.loop(timestamp));
+    }
   }
 }

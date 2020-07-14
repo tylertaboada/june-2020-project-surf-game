@@ -3,13 +3,12 @@ class Kook {
     this.game = game;
     this.kookWidth = 50;
     this.kookHeight = 50;
-    this.kookX = 800;
-    this.kookY = 200;
+    this.kookX = this.game.canvas.width;
+    this.kookY = Math.random() * (this.game.canvas.height - this.kookHeight);
   }
 
   runLogic() {
-    const CURRENT = -3.5;
-    this.kookY = 150;
+    const CURRENT = -4.5;
     this.kookX += CURRENT;
   }
 
@@ -20,10 +19,4 @@ class Kook {
     context.fillRect(this.kookX, this.kookY, this.kookWidth, this.kookWidth);
     context.restore();
   }
-
-  //   const kook1 = new Kook(100,100,50,50);
-  //   const kook2 = new Kook(200,300,50,50);
-
-  // kook.paint(context);
-  // kook2.paint(context);
 }

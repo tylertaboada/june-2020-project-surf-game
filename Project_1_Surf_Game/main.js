@@ -4,3 +4,6 @@ window.addEventListener('load', () => {
   const game = new Game(canvas, context);
   game.loop();
 });
+
+var audio = new Audio('sound/The XXIntro HQ.mp3');
+audio.play();
