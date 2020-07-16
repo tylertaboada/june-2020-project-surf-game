@@ -12,17 +12,24 @@ body {
   background-size: 100%;
 }
 
-canvas {
+#mainCanvas {
   background-color: transparent;
-  width: 95%;
+  width: 75%;
   margin: 0 auto;
   display: block;
-  margin-top: 7%;
-  background-image: url('images/wave_layer.png');
+  margin-top: 0;
+  /* background-image: url('images/wave_layer.png'); */
   background-repeat: no-repeat;
   background-color: teal;
-  box-shadow: 5px 5px 5px 5px white;
+  box-shadow: 2px 2px 2px 2px white;
 }
+
+/* canvas {
+  background-color: transparent;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+} */
 
 .container {
   display: flex;

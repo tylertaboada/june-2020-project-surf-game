@@ -7,18 +7,29 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <section id="gameOver">
-      <h1 class="title">GAME OVER!</h1>
-      <h3 id="restartButton">Restart?</h3>
-    </section>
-    <canvas width="1000" height="300"></canvas>
+    <canvas id="topCanvas" width="1000" height="100"></canvas>
+    <!-- <div class="videoContainer">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/FLyz3trElaw?start=5"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div> -->
+    <canvas id="mainCanvas" width="1000" height="400"></canvas>
+    <script src="pineapples.js"></script>
+    <!-- <script src="background.js"></script> -->
     <script src="obstacles.js"></script>
     <script src="surfer.js"></script>
     <script src="scoreboard.js"></script>
     <script src="game.js"></script>
+    <script src="airplane.js"></script>
     <script src="main.js"></script>
+
     <div class="container">
-      <iframe
+      <!-- <iframe
         width="360"
         height="215"
         src="https://www.youtube.com/embed/RtjCi6MO8Fc?start=8"
@@ -26,7 +37,7 @@
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
-      <img src="images/old_scool_tv.png" alt="Television" />
+      <img src="images/old_scool_tv.png" alt="Television" /> -->
     </div>
   </body>
 </html>

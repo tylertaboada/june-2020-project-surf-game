@@ -15,8 +15,11 @@ class Scoreboard {
     context.font = '18px courier';
     context.fillStyle = 'white';
     context.fillText(
-      'Current Wave: ' + this.currentScore,
-      20,
+      'Current Wave: ' +
+        this.currentScore +
+        '   Pineapple Points: ' +
+        this.game.pineappleCount,
+      550,
       canvas.height - 10
     );
     context.restore();

@@ -4,27 +4,34 @@ class Game {
     this.context = context;
     this.player = new Surfer(this);
     this.kook = new Kook(this);
+    this.pineapples = new Pineapples(this);
+    //  this.wave = new Wave(this);
     this.setKeyBindings();
     this.running = false;
     this.kooks = [];
+    this.pineapple = [];
     this.obstacleDelta = 1500;
+    this.pineappleDelta = 3000;
     this.timer = 0;
     this.scoreboard = new Scoreboard(this);
     this.gameStarted = false;
     this.timeGameStarted = 0;
-    //  this.waveImage = new Image();
-    //  this.waveImage.src = '/images/wave_layer.png';
+    this.timerPineapple = 0;
+    this.pineappleCount = 0;
   }
 
   resetEverything() {
     this.player = new Surfer(this);
     this.kook = new Kook(this);
+    this.pineapples = new Pineapples(this);
     this.running = false;
     this.kooks = [];
+    this.pineapple = [];
     this.obstacleDelta = 1500;
     this.timer = 0;
     this.gameStarted = false;
     this.timeGameStarted = 0;
+    this.pineappleCount = 0;
     this.scoreboard.currentScore = 0;
     this.paintStartScreen();
   }
@@ -35,12 +42,12 @@ class Game {
       this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
       this.context.fillStyle = 'salmon';
       this.context.font = '50px courier';
-      this.context.fillText("Let's Shred", 350, 120);
+      this.context.fillText("Let's Shred", 350, 170);
       this.context.font = '30px courier';
-      this.context.fillText('🤙🏼 🏄🏽‍♂️ ☀️', 450, 180);
+      this.context.fillText('🤙🏼 🏄🏽‍♂️ ☀️ 🍍', 430, 220);
       this.context.fillStyle = 'salmon';
       this.context.font = '20px courier';
-      this.context.fillText('PRESS SPACE', 450, 220);
+      this.context.fillText('PRESS SPACE TO START', 400, 260);
     }
   }
 
@@ -49,22 +56,33 @@ class Game {
       this.context.fillStyle = 'white';
       this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
       this.context.fillStyle = 'salmon';
-      this.context.font = '50px courier';
-      this.context.fillText('That was gnarly!', 275, 90);
+      this.context.font = '55px courier';
+      this.context.fillText('That was gnarly!', 75, 100);
       this.context.fillStyle = 'teal';
       this.context.font = '20px courier';
       this.context.fillText(
         'You were a surf legend for ' +
           this.scoreboard.currentScore +
-          ' seconds',
-        290,
-        130
+          ' SECONDS',
+        75,
+        150
+      );
+      this.context.fillText(
+        ' & collected ' + this.pineappleCount + ' PINEAPPLE POINTS.',
+        75,
+        180
       );
       this.context.fillStyle = 'salmon';
       this.context.font = '30px courier';
-      this.context.fillText('🤙🏼 🏄🏽‍♂️ ☀️', 440, 180);
+      this.context.fillText('🤙🏼 🏄🏽‍♂️ ☀️ 🍍', 100, 245);
       this.context.font = '20px courier';
-      this.context.fillText('PRESS ENTER TO TRY AGAIN', 360, 220);
+      this.context.fillText('PRESS ENTER TO TRY AGAIN', 110, 320);
+      this.context.strokeStyle = 'teal';
+      this.context.beginPath();
+      this.context.rect(75, 290, 355, 50);
+      this.context.stroke();
+      this.context.fillRect(650, 60, 275, 280);
+      // this.context.videoContainer;
     }
   }
 
@@ -73,10 +91,12 @@ class Game {
       const key = event.keyCode;
       switch (key) {
         case 38:
-          this.player.surfY -= 15;
+          this.player.speed -= 12;
+          this.player.playerDirection = 'up';
           break;
         case 40:
-          this.player.surfY += 15;
+          this.player.speed += 17;
+          this.player.playerDirection = 'down';
           break;
         case 32:
           if (this.running === false) {
@@ -99,6 +119,13 @@ class Game {
     if (this.timer < timestamp - this.obstacleDelta) {
       this.timer = timestamp;
       this.kooks.push(new Kook(this));
+    }
+  }
+
+  addMorePineapples(timestamp) {
+    if (this.timerPineapple < timestamp - this.pineappleDelta) {
+      this.timerPineapple = timestamp;
+      this.pineapple.push(new Pineapples(this));
     }
   }
 
@@ -126,8 +153,23 @@ class Game {
     }
   }
 
+  checkPineappleCollission() {
+    for (let pineapple of this.pineapple) {
+      if (
+        this.player.surfX < pineapple.pineapplesX + pineapple.pineapplesWidth &&
+        this.player.surfX + this.player.playerWidth > pineapple.pineapplesX &&
+        this.player.surfY <
+          pineapple.pineapplesY + pineapple.pineapplesHeight &&
+        this.player.surfY + this.player.playerHeight > pineapple.pineapplesY
+      ) {
+        this.pineappleCount += 1;
+        this.pineapple.splice(this.pineapple.indexOf[pineapple], 1);
+      }
+    }
+  }
+
   checkSurfBail() {
-    if (this.player.surfY + this.player.playerHeight > 300) {
+    if (this.player.surfY + this.player.playerHeight > 420) {
       this.lose();
     }
   }
@@ -137,13 +179,18 @@ class Game {
     for (let kook of this.kooks) {
       kook.runLogic();
     }
+    for (let pineapple of this.pineapple) {
+      pineapple.runLogic();
+    }
     this.checkCollission();
+    this.checkPineappleCollission();
     this.checkSurfBail();
     if (this.gameStarted && timestamp) {
       this.timeGameStarted = timestamp;
       this.gameStarted = false;
     }
     this.addMoreKooks(timestamp - this.timeGameStarted);
+    this.addMorePineapples(timestamp - this.timeGameStarted);
     this.scoreboard.increaseScore(timestamp - this.timeGameStarted);
     this.increaseDifficulty();
   }
@@ -154,16 +201,13 @@ class Game {
 
   paint(timestamp) {
     if (this.running === true) {
-      // this.context.drawImage(
-      //   this.waveImage,
-      //   0,
-      //   0,
-      //   this.canvas.width,
-      //   this.canvas.height
-      // );
       this.player.paint();
+      // this.background.paint();
       for (let kook of this.kooks) {
         kook.paint();
+      }
+      for (let pineapple of this.pineapple) {
+        pineapple.paint();
       }
       this.scoreboard.paint();
     } else {

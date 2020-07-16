@@ -10,15 +10,15 @@ class Kook {
   }
 
   runLogic() {
-    const CURRENT = -4.5;
+    const CURRENT = -4;
     this.kookX += CURRENT;
   }
 
   paint() {
     const context = this.game.context;
     context.save();
-    context.fillStyle = 'red';
-    //  context.fillRect(this.kookX, this.kookY, this.kookWidth, this.kookWidth);
+    //  context.shadowBlur = 5;
+    //  context.shadowColor = 'red';
     context.drawImage(
       this.image,
       this.kookX,
