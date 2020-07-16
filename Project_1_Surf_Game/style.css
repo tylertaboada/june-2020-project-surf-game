@@ -1,28 +1,42 @@
 body {
+  padding: 0;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: tan;
+  background-color: white;
   background-image: url('/images/sand.jpeg');
+  background-position: relative;
   background-repeat: no-repeat;
   background-size: 100%;
 }
 
 canvas {
   background-color: transparent;
-  padding: 0;
+  width: 95%;
   margin: 0 auto;
   display: block;
-  margin-top: 50px;
+  margin-top: 7%;
+  background-image: url('images/wave_layer.png');
+  background-repeat: no-repeat;
+  background-color: teal;
+  box-shadow: 5px 5px 5px 5px white;
 }
 
 .container {
   display: flex;
   flex-direction: row;
   font-size: larger;
+  align-items: center;
+  align-content: flex-start;
 }
 
 .blocks {
   margin: 50px;
+}
+
+#gameOver {
+  position: absolute;
+  visibility: hidden;
 }

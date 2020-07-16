@@ -7,26 +7,26 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <canvas width="1000" height="400"></canvas>
+    <section id="gameOver">
+      <h1 class="title">GAME OVER!</h1>
+      <h3 id="restartButton">Restart?</h3>
+    </section>
+    <canvas width="1000" height="300"></canvas>
     <script src="obstacles.js"></script>
     <script src="surfer.js"></script>
     <script src="scoreboard.js"></script>
     <script src="game.js"></script>
     <script src="main.js"></script>
-    <h1>Surf Sesh</h1>
     <div class="container">
-      <div class="blocks">
-        <button>Start Sesh</button>
-      </div>
-      <div class="blocks">
-        <button>Surf Vids</button>
-      </div>
-      <div class="blocks">
-        <button>Surf Jams</button>
-      </div>
-      <div class="blocks">
-        <button>Learn More</button>
-      </div>
+      <iframe
+        width="360"
+        height="215"
+        src="https://www.youtube.com/embed/RtjCi6MO8Fc?start=8"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+      <img src="images/old_scool_tv.png" alt="Television" />
     </div>
   </body>
 </html>
