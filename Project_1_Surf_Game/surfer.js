@@ -3,7 +3,7 @@ class Surfer {
     this.game = game;
     this.playerWidth = 50;
     this.playerHeight = 50;
-    this.surfX = 175;
+    this.surfX = 250;
     this.surfY = 50;
     this.image = new Image();
     this.image.src = '/images/surf_norm.png';

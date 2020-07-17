@@ -4,7 +4,7 @@ class Kook {
     this.kookWidth = 50;
     this.kookHeight = 50;
     this.kookX = this.game.canvas.width;
-    this.kookY = Math.random() * (this.game.canvas.height - 75);
+    this.kookY = Math.random() * (this.game.canvas.height - 100);
     this.image = new Image();
     this.image.src = '/images/kook.gif';
   }
@@ -17,8 +17,8 @@ class Kook {
   paint() {
     const context = this.game.context;
     context.save();
-    //  context.shadowBlur = 5;
-    //  context.shadowColor = 'red';
+    context.shadowBlur = 5;
+    context.shadowColor = 'white';
     context.drawImage(
       this.image,
       this.kookX,

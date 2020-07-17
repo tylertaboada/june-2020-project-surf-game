@@ -6,7 +6,7 @@ body {
   align-items: center;
   flex-direction: column;
   background-color: white;
-  background-image: url('/images/sand.jpeg');
+  background-image: url('/images/background80s.jpeg');
   background-position: relative;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -14,14 +14,14 @@ body {
 
 #mainCanvas {
   background-color: transparent;
-  width: 75%;
+  width: 95%;
   margin: 0 auto;
   display: block;
-  margin-top: 0;
+  margin-top: 50px;
   /* background-image: url('images/wave_layer.png'); */
   background-repeat: no-repeat;
   background-color: teal;
-  box-shadow: 2px 2px 2px 2px white;
+  /* box-shadow: 2px 2px 2px 2px white; */
 }
 
 /* canvas {
@@ -46,4 +46,11 @@ body {
 #gameOver {
   position: absolute;
   visibility: hidden;
+}
+
+.footer {
+  margin-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
 }

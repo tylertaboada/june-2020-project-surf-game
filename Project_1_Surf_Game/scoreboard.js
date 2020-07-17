@@ -12,16 +12,20 @@ class Scoreboard {
     const context = this.game.context;
     const canvas = this.game.canvas;
     context.save();
-    context.font = '18px courier';
+    context.fillStyle = '#bcff7c';
+    context.fillRect(535, 360, 427, 28);
     context.fillStyle = 'white';
+    context.fillRect(540, 365, 427, 28);
+    context.restore();
+    context.font = '18px courier';
+    context.fillStyle = 'black';
     context.fillText(
       'Current Wave: ' +
         this.currentScore +
         '   Pineapple Points: ' +
         this.game.pineappleCount,
       550,
-      canvas.height - 10
+      canvas.height - 15
     );
-    context.restore();
   }
 }
